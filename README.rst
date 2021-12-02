@@ -1,6 +1,13 @@
 roLabelImg
 ==========
 
+.. code::
+
+    conda create -n label python=3.7 -y
+    conda activate label
+    pip install pyqt5
+    python roLabelImg.py
+    
 .. image:: https://img.shields.io/pypi/v/labelimg.svg
         :target: https://pypi.python.org/pypi/labelimg
 
