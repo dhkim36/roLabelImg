@@ -108,8 +108,12 @@ class PascalVocWriter:
 
     # You Hao 2017/06/21
     # add to analysis robndbox
-    def addRotatedBndBox(self, cx, cy, w, h, angle, name, difficult):
-        robndbox = {'cx': cx, 'cy': cy, 'w': w, 'h': h, 'angle': angle}
+    def addRotatedBndBox(self, points, cx, cy, w, h, angle, name, difficult):
+        robndbox = {'x1': points[0][0], 'y1': points[0][1],
+                    'x2': points[1][0], 'y2': points[1][1],
+                    'x3': points[2][0], 'y3': points[2][1],
+                    'x4': points[3][0], 'y4': points[3][1],
+                    'cx': cx, 'cy': cy, 'w': w, 'h': h, 'angle': angle}
         robndbox['name'] = name
         robndbox['difficult'] = difficult
         self.roboxlist.append(robndbox)
@@ -170,6 +174,25 @@ class PascalVocWriter:
             difficult = SubElement(object_item, 'difficult')
             difficult.text = str( bool(each_object['difficult']) & 1 )
             robndbox = SubElement(object_item, 'robndbox')
+            
+            # (x1,y1,x2,y2,x3,y3,x4,y4)
+            x1 = SubElement(robndbox, 'x1')
+            x1.text = str(each_object['x1'])
+            y1 = SubElement(robndbox, 'y1')
+            y1.text = str(each_object['y1'])
+            x2 = SubElement(robndbox, 'x2')
+            x2.text = str(each_object['x2'])
+            y2 = SubElement(robndbox, 'y2')
+            y2.text = str(each_object['y2'])
+            x3 = SubElement(robndbox, 'x3')
+            x3.text = str(each_object['x3'])
+            y3 = SubElement(robndbox, 'y3')
+            y3.text = str(each_object['y3'])
+            x4 = SubElement(robndbox, 'x4')
+            x4.text = str(each_object['x4'])
+            y4 = SubElement(robndbox, 'y4')
+            y4.text = str(each_object['y4'])
+
             cx = SubElement(robndbox, 'cx')
             cx.text = str(each_object['cx'])
             cy = SubElement(robndbox, 'cy')
