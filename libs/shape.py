@@ -13,6 +13,7 @@ from lib import distance
 import math
 
 DEFAULT_LINE_COLOR = QColor(0, 255, 0, 128)
+FRONT_LINE_COLOR = QColor(255, 0, 0)
 DEFAULT_FILL_COLOR = QColor(255, 0, 0, 128)
 DEFAULT_SELECT_LINE_COLOR = QColor(255, 255, 255)
 DEFAULT_SELECT_FILL_COLOR = QColor(0, 128, 255, 155)
@@ -28,6 +29,7 @@ class Shape(object):
     # The following class variables influence the drawing
     # of _all_ shape objects.
     line_color = DEFAULT_LINE_COLOR
+    front_line_color = FRONT_LINE_COLOR
     fill_color = DEFAULT_FILL_COLOR
     select_line_color = DEFAULT_SELECT_LINE_COLOR
     select_fill_color = DEFAULT_SELECT_FILL_COLOR
@@ -138,6 +140,16 @@ class Shape(object):
             # painter.drawPath(dir_path)
 
             painter.drawPath(line_path)
+                        
+            # front line (red)
+            if len(self.points) > 2:
+                painter.setPen(Shape.front_line_color)
+                front_line_path = QPainterPath()
+                front_line_path.moveTo(self.points[0])
+                front_line_path.lineTo(self.points[1])
+                painter.drawPath(front_line_path)
+                painter.setPen(color)
+            
             painter.drawPath(vrtx_path)
             painter.fillPath(vrtx_path, self.vertex_fill_color)
             if self.fill:
